@@ -1,59 +1,93 @@
-# IssueTrackerUi
+Issue Tracker
+This is a full-stack web application for tracking issues. It includes a backend API built with Python and FastAPI, and a frontend user interface built with Angular.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.3.3.
+Features
+Create, Read, Update, and Delete (CRUD) issues: Users can create new issues, view a list of existing issues, edit existing issues, and delete issues.
 
-## Development server
+Search and filter: The issue list can be searched by title and filtered by status, priority, and assignee.
 
-To start a local development server, run:
+Sort: The issue list can be sorted by ID, title, status, priority, assignee, and last updated date.
 
-```bash
+Pagination: The issue list is paginated to handle a large number of issues.
+
+Modal forms: Issue creation and editing are handled in a modal form, providing a seamless user experience.
+
+Technologies Used
+Backend
+Python: The primary programming language for the backend.
+
+FastAPI: A modern, fast (high-performance) web framework for building APIs with Python.
+
+SQLAlchemy: A SQL toolkit and Object-Relational Mapper (ORM) for Python.
+
+SQLite: The database used for storing issue data.
+
+Frontend
+Angular: A platform for building mobile and desktop web applications.
+
+TypeScript: A typed superset of JavaScript that compiles to plain JavaScript.
+
+HTML & CSS: The standard markup and styling languages for creating web pages.
+
+Getting Started
+Prerequisites
+Python 3.7+
+
+Node.js and npm
+
+Angular CLI
+
+Backend Setup
+Clone the repository:
+
+Bash
+
+git clone https://github.com/your-username/issue-tracker.git
+cd issue-tracker
+Install Python dependencies:
+
+Bash
+
+pip install -r requirements.txt
+Run the backend server:
+
+Bash
+
+uvicorn main:app --reload
+The backend API will be running at http://localhost:8000.
+
+Frontend Setup
+Navigate to the src directory:
+
+Bash
+
+cd src
+Install npm packages:
+
+Bash
+
+npm install
+Run the Angular development server:
+
+Bash
+
 ng serve
-```
+The frontend application will be running at http://localhost:4200.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Database
+The application uses a SQLite database, which is created automatically as issuetracker.db when the backend is started for the first time. The database schema is defined in database.py.
 
-## Code scaffolding
+Project Structure
+Backend (main.py, database.py)
+main.py: Contains the FastAPI application and all the API endpoints for managing issues.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+database.py: Defines the database schema using SQLAlchemy and provides functions for interacting with the database.
 
-```bash
-ng generate component component-name
-```
+Frontend (src/app)
+src/app/issue-list: Contains the main component for displaying the list of issues, along with filtering, sorting, and pagination controls.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+src/app/issue-detail: Contains the component for displaying the details of a single issue.
 
-```bash
-ng generate --help
-```
+src/app/issue.service.ts: An Angular service that handles all communication with the backend API.
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+src/app/issue.ts: Defines the Issue interface, which represents the structure of an issue object.
