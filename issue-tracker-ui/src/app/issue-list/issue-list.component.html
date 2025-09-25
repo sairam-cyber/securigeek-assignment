@@ -1,0 +1,95 @@
+<div class="container">
+    <h1>Issue Tracker</h1>
+  
+    <div class="controls">
+      <input type="text" placeholder="Search by title..." [(ngModel)]="searchTerm" (ngModelChange)="loadIssues()">
+      <select [(ngModel)]="statusFilter" (ngModelChange)="loadIssues()">
+        <option value="">All Statuses</option>
+        <option value="open">Open</option>
+        <option value="in-progress">In Progress</option>
+        <option value="closed">Closed</option>
+      </select>
+      <select [(ngModel)]="priorityFilter" (ngModelChange)="loadIssues()">
+        <option value="">All Priorities</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+      <input type="text" placeholder="Assignee..." [(ngModel)]="assigneeFilter" (ngModelChange)="loadIssues()">
+      <button class="create-btn" (click)="openCreateForm()">Create Issue</button>
+    </div>
+  
+    <table>
+      <thead>
+        <tr>
+          <th (click)="sort('id')">ID</th>
+          <th (click)="sort('title')">Title</th>
+          <th (click)="sort('status')">Status</th>
+          <th (click)="sort('priority')">Priority</th>
+          <th (click)="sort('assignee')">Assignee</th>
+          <th (click)="sort('updatedAt')">Last Updated</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let issue of issues" (click)="viewIssue(issue)">
+          <td>{{ issue.id.substring(0, 8) }}...</td>
+          <td>{{ issue.title }}</td>
+          <td>{{ issue.status }}</td>
+          <td>{{ issue.priority }}</td>
+          <td>{{ issue.assignee }}</td>
+          <td>{{ issue.updatedAt | date: 'short' }}</td>
+          <td class="actions">
+            <button (click)="openEditForm(issue); $event.stopPropagation()">Edit</button>
+          </td>
+        </tr>
+        <tr *ngIf="issues.length === 0">
+          <td colspan="7" class="no-issues">No issues found.</td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <div class="pagination">
+      <button (click)="previousPage()" [disabled]="page <= 1">Previous</button>
+      <span>Page {{ page }}</span>
+      <button (click)="nextPage()" [disabled]="issues.length < pageSize">Next</button>
+    </div>
+  
+  </div>
+  
+  <div class="modal-overlay" *ngIf="isFormVisible" (click)="closeForm()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h2>{{ isEditing ? 'Edit Issue' : 'Create Issue' }}</h2>
+  
+      <form (ngSubmit)="saveIssue()">
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input id="title" name="title" [(ngModel)]="currentIssue.title" required>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select id="status" name="status" [(ngModel)]="currentIssue.status">
+            <option value="open">Open</option>
+            <option value="in-progress">In Progress</option>
+            <option value="closed">Closed</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="priority">Priority</label>
+          <select id="priority" name="priority" [(ngModel)]="currentIssue.priority">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="assignee">Assignee</label>
+          <input id="assignee" name="assignee" [(ngModel)]="currentIssue.assignee">
+        </div>
+        <div class="form-actions">
+          <button type="button" (click)="closeForm()">Cancel</button>
+          <button type="submit">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>

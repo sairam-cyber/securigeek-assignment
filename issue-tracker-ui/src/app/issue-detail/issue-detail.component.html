@@ -1,0 +1,10 @@
+<div class="container">
+    <a href="/" class="back-link">&larr; Back to List</a>
+    <h2>Issue Details</h2>
+    <div *ngIf="issue" class="json-container">
+      <pre>{{ issue | json }}</pre>
+    </div>
+    <div *ngIf="!issue">
+      <p>Loading...</p>
+    </div>
+  </div>
